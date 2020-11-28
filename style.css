@@ -10,11 +10,13 @@ button {
 .game {
   display: flex;
   flex-direction: column;
-  width: 700px;
+  align-content: center;
+  max-width: 700px;
   height: 500px;
   background: url(img/background.png) center/cover;
   border-radius: 30px;
   margin: auto;
+  overflow: hidden;
 }
 
 .game__header {
@@ -70,7 +72,7 @@ button {
   height: 140px;
   border-radius: 20px;
   padding: 20px;
-  transform: translateY(-150%);
+  transform: translateY(-130%);
   margin: auto;
 }
 .pop-up--hide {
