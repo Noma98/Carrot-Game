@@ -38,6 +38,7 @@ button {
   font-size: 30px;
   width: 100px;
   border-radius: 10px;
+  visibility: hidden;
 }
 .game__score {
   font-size: 40px;
@@ -48,6 +49,7 @@ button {
   width: 50px;
   height: 50px;
   line-height: 50px;
+  visibility: hidden;
 }
 .game__button,
 .game__timer,
@@ -59,6 +61,7 @@ button {
   width: 100%;
   height: 100%;
   margin-top: 75px;
+  position: relative;
 }
 .pop-up {
   background-color: rgba(0, 0, 0, 0.678);
