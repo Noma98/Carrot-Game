@@ -10,6 +10,7 @@ const fieldRect=field.getBoundingClientRect();
 const gameBtn=document.querySelector('.game__button');
 const gameTimer=document.querySelector('.game__timer');
 const gameScore=document.querySelector('.game__score');
+const icon=gameBtn.querySelector('.fas');
 
 const popUp=document.querySelector('.pop-up');
 const popUpText=document.querySelector('.pop-up__message');
@@ -25,16 +26,53 @@ gameBtn.addEventListener('click',()=>{
     }else{
         startGame();
     }
-    started=!started;
 });
+field.addEventListener('click',onFieldClick);
+function onFieldClick(event){
+    if(!started){
+        return;
+    }
+    const target=event.target;
+    if(target.matches('.carrot')){
+        //당근!!
+        target.remove();
+        score++;
+        updateScoreBoard();
+        if(score===CARROT_COUNT){
+            finishGame(true);
+        }
+    }else if(target.matches('.bug')){
+        //벌레!!
+        finishGame(false);
+    }
+}
+popUpRefresh.addEventListener('click',()=>{
+    startGame();
+    hidePopUp();
+});
+function hidePopUp(){
+    popUp.classList.add('pop-up--hide');
+}
+function updateScoreBoard(){
+    gameScore.textContent=CARROT_COUNT-score;
+}
+function finishGame(win){
+    started=false;
+    hideGameBtn();
+    stopGameTimer();
+    showPopUpWithText(win?'YOU WON🎉':'YOU LOST💥');
+}
 
 function startGame(){
+    started=true;
+    score=0;
     initGame();
     showStopBtn();
     showTimerAndScore();
     startGameTimer();
 }
 function stopGame(){
+    started=false;
     hideGameBtn();
     stopGameTimer();
     showPopUpWithText('Replay❓');
@@ -50,8 +88,7 @@ function startGameTimer(){
     timer=setInterval(() => {
         if(remainingTimeSec<=0){
             clearInterval(timer);
-            started=false;
-            stopGame();
+            finishGame(CARROT_COUNT===score);
             return;
         }else{
             updateTimerText(--remainingTimeSec);
@@ -72,11 +109,13 @@ function showTimerAndScore(){
 }
 
 function showStopBtn(){
-    const icon=gameBtn.querySelector('.fa-play');
     icon.classList.add('fa-stop');
     icon.classList.remove('fa-play');
+    gameBtn.style.visibility='visible';
 }
 function hideGameBtn(){
+    icon.classList.remove('fa-stop');
+    icon.classList.add('fa-play');
     gameBtn.style.visibility='hidden';
 }
 function initGame(){
