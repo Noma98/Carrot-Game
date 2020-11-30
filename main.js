@@ -10,11 +10,17 @@ const fieldRect=field.getBoundingClientRect();
 const gameBtn=document.querySelector('.game__button');
 const gameTimer=document.querySelector('.game__timer');
 const gameScore=document.querySelector('.game__score');
-const icon=gameBtn.querySelector('.fas');
+
 
 const popUp=document.querySelector('.pop-up');
 const popUpText=document.querySelector('.pop-up__message');
 const popUpRefresh=document.querySelector('.pop-up__refresh');
+
+const carrotSound=new Audio('sound/carrot_pull.mp3');
+const bugSound=new Audio('sound/bug_pull.mp3');
+const alertSound=new Audio('sound/alert.wav');
+const winSound=new Audio('sound/game_win.mp3');
+const bgSound=new Audio('sound/bg.mp3');
 
 let started=false;
 let score=0;
@@ -37,14 +43,23 @@ function onFieldClick(event){
         //당근!!
         target.remove();
         score++;
+        playSound(carrotSound);
         updateScoreBoard();
         if(score===CARROT_COUNT){
             finishGame(true);
         }
     }else if(target.matches('.bug')){
         //벌레!!
+        playSound(bugSound);
         finishGame(false);
     }
+}
+function playSound(sound){
+    sound.play();   
+}
+function stopSound(sound){
+    sound.currentTime=0;
+    sound.pause();
 }
 popUpRefresh.addEventListener('click',()=>{
     startGame();
@@ -60,12 +75,14 @@ function finishGame(win){
     started=false;
     hideGameBtn();
     stopGameTimer();
+    playSound(win?winSound:bugSound);
     showPopUpWithText(win?'YOU WON🎉':'YOU LOST💥');
 }
 
 function startGame(){
     started=true;
     score=0;
+    playSound(bgSound);
     initGame();
     showStopBtn();
     showTimerAndScore();
@@ -73,6 +90,7 @@ function startGame(){
 }
 function stopGame(){
     started=false;
+    playSound(alertSound);
     hideGameBtn();
     stopGameTimer();
     showPopUpWithText('Replay❓');
@@ -97,6 +115,7 @@ function startGameTimer(){
 }
 function stopGameTimer(){
     clearInterval(timer);
+    stopSound(bgSound);
 }
 function updateTimerText(time){
     let minutes=Math.floor(time/60);
@@ -109,13 +128,12 @@ function showTimerAndScore(){
 }
 
 function showStopBtn(){
+    const icon=gameBtn.querySelector('.fas');
     icon.classList.add('fa-stop');
     icon.classList.remove('fa-play');
     gameBtn.style.visibility='visible';
 }
 function hideGameBtn(){
-    icon.classList.remove('fa-stop');
-    icon.classList.add('fa-play');
     gameBtn.style.visibility='hidden';
 }
 function initGame(){

@@ -42,6 +42,7 @@ button {
   width: 100px;
   border-radius: 10px;
   visibility: hidden;
+  user-select: none;
 }
 .game__score {
   font-size: 40px;
@@ -53,6 +54,7 @@ button {
   height: 50px;
   line-height: 50px;
   visibility: hidden;
+  user-select: none;
 }
 .game__button,
 .game__timer,
@@ -92,4 +94,12 @@ button {
   display: block;
   margin-top: 8px;
   font-size: 38px;
+}
+.carrot,
+.hover {
+  transition: transform 100ms ease-in;
+}
+.carrot:hover,
+.bug:hover {
+  transform: scale(1.1);
 }
