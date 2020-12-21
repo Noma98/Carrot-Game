@@ -1,10 +1,10 @@
 'use strict';
-import { ItemType } from './field.js';
 import * as sound from './sound.js';
 import {Field,ItemType} from './field.js';
 
 export const Reason=Object.freeze({
     cancel:'cancel',
+    next:'next',
     win:'win',
     lose:'lose'   
 })
@@ -38,15 +38,20 @@ class Game{
         this.gameDuration=gameDuration;
         this.started=false;
         this.score=0;
+        this.level=1;
         this.timer=undefined;
+        this.ringing=undefined;
 
         this.gameBtn=document.querySelector('.game__button');
+        this.gameTimerBox=document.querySelector('.game__timer-box');
         this.gameTimer=document.querySelector('.game__timer');
         this.gameScore=document.querySelector('.game__score');
+        this.gameLevel=document.querySelector('.level');
         this.gameBtn.addEventListener('click',()=>{
             if(this.started){
                 this.stop(Reason.cancel);
             }else{
+                this.gameField.hideReadyScreen();
                 this.start();
             }
         });
@@ -64,12 +69,17 @@ class Game{
         this.showStopBtn();
         this.showTimerAndScore();
         this.startGameTimer();
+        this.clockRing();
+        this.gameField.notClickable('auto');
+        this.showLevel();
     }
     stop(reason){
         this.started=false;
         this.hideGameBtn();
         this.stopGameTimer();
         this.onGameStop&&this.onGameStop(reason);
+        this.stopClockRing();
+        this.gameField.notClickable('none');
     }
     onItemClick=(item)=>{
         if(!this.started){
@@ -79,7 +89,13 @@ class Game{
             this.score++;
             this.updateScoreBoard();
             if(this.score===this.carrotCount){
+                if(this.level!==3){
+                    this.stop(Reason.next);
+                    this.levelUp();
+                    return;
+                }
                 this.stop(Reason.win);
+                this.levelUp();
             }
         }else if(item===ItemType.bug){
             this.stop(Reason.lose);
@@ -103,7 +119,12 @@ class Game{
         clearInterval(this.timer);
         sound.stopbg();
     }
-
+    showLevel(){
+        this.gameLevel.textContent=this.level;
+    }
+    levelUp(){
+        this.level++;
+    }
     updateTimerText(time){
         let minutes=Math.floor(time/60);
         let seconds=time%60;
@@ -114,7 +135,7 @@ class Game{
     }
 
     showTimerAndScore(){
-        this.gameTimer.style.visibility='visible';
+        this.gameTimerBox.style.visibility='visible';
         this.gameScore.style.visibility='visible';
     }
     showStopBtn(){
@@ -132,7 +153,16 @@ class Game{
         this.gameScore.textContent=this.carrotCount;
         this.gameField.init();
     }
-
-
-
+    clockRing(){
+        const clock=document.querySelector('.clock');
+        this.ringing=setInterval(() => {
+                setTimeout(() => {
+                clock.style.transform='rotate(-2deg)';
+                }, 100);
+                clock.style.transform='rotate(2deg)'; 
+            }, 200);
+    } 
+    stopClockRing(){
+        clearInterval(this.ringing);
+    }
 }

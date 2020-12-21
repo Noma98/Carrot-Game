@@ -49,8 +49,17 @@ export class Field{
             this.onItemClick&&this.onItemClick(ItemType.bug);
         }
     }
+    notClickable(property){
+        this.field.style.pointerEvents=property;
+    }
+    hideReadyScreen(){
+        const readyScreen=document.querySelector('.game--ready');
+        readyScreen.classList.add('hide');
+    }
 }
 
 function randomNumber(min,max){
     return Math.random()*(max-min)+min;
 }
+
+

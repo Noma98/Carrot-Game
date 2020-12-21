@@ -1,14 +1,55 @@
+:root {
+  /* color */
+  --color-brown: rgb(78, 77, 61);
+  --color-dark-brown: rgb(58, 37, 21);
+  --color-popup-background: rgba(0, 0, 0, 0.678);
+  --color-ivory: ivory;
+  --color-beige: wheat;
+}
+* {
+  box-sizing: border-box;
+}
 body {
+  padding-top: 50px;
+  margin: 0;
   text-align: center;
   background-color: black;
   overflow: hidden;
+  font-family: 'Patua One', cursive;
 }
 button {
   border: none;
   outline: none;
   cursor: pointer;
 }
+.game--ready {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-brown);
+  font-size: 50px;
+  white-space: nowrap;
+  font-weight: bolder;
+  letter-spacing: 4px;
+  z-index: 1;
+}
+.game--ready.hide {
+  display: none;
+}
+.carrot {
+  transition: transform 100ms ease-in;
+  width: 70px;
+  height: 80px;
+}
+.game--ready .carrot-left {
+  margin: 40px 20px 0 0;
+}
+.game--ready .carrot-right {
+  margin: 40px 0 0 20px;
+}
 .game {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -24,35 +65,56 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 10px;
+}
+.levelBox {
+  background-color: rgba(255, 248, 240, 0.918);
+  border-radius: 8px;
+  padding: 8px 16px;
+  color: var(--color-brown);
+  font-weight: bolder;
+  position: absolute;
+  left: 50px;
+  top: 60px;
 }
 .game__button {
   width: 60px;
   height: 60px;
   font-size: 30px;
   border-radius: 10px;
-  background: wheat;
+  background: var(--color-brown);
+  color: orange;
   transition: transform 300ms ease-in;
 }
 .game__button:hover {
   transform: scale(1.1);
 }
+.game__timer-box {
+  display: flex;
+  align-items: center;
+  visibility: hidden;
+}
 .game__timer {
-  background: white;
+  background: var(--color-ivory);
   font-size: 30px;
   width: 100px;
   border-radius: 10px;
-  visibility: hidden;
   user-select: none;
+  color: var(--color-dark-brown);
+}
+.clock {
+  width: 70px;
+  height: 70px;
 }
 .game__score {
   font-size: 40px;
-  color: white;
+  color: var(--color-ivory);
   background: darkorange;
   border-radius: 50%;
   display: block;
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
   visibility: hidden;
   user-select: none;
 }
@@ -60,23 +122,22 @@ button {
 .game__timer,
 .game__score {
   margin-top: 10px;
-  border: black 2px solid;
 }
 .game__field {
   width: 100%;
   height: 100%;
-  margin-top: 75px;
   position: relative;
 }
 .pop-up {
-  background-color: rgba(0, 0, 0, 0.678);
-  color: white;
-  width: 400px;
-  height: 140px;
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: var(--color-popup-background);
+  width: 70%;
+  padding: 40px 30px;
+  color: var(--color-ivory);
   border-radius: 20px;
-  padding: 20px;
-  transform: translateY(-130%);
-  margin: auto;
 }
 .pop-up--hide {
   display: none;
@@ -85,21 +146,25 @@ button {
   width: 60px;
   height: 60px;
   font-size: 30px;
-  color: black;
-  background-color: wheat;
-  border: 2px solid black;
+  color: var(--color-dark-brown);
+  background-color: var(--color-beige);
+  border: 3px solid black;
   border-radius: 10px;
+  transition: transform 200ms ease-in;
 }
 .pop-up__message {
   display: block;
   margin-top: 8px;
   font-size: 38px;
+  letter-spacing: 3px;
 }
-.carrot,
-.hover {
-  transition: transform 100ms ease-in;
+
+.bug {
+  width: 70px;
+  height: 50px;
 }
 .carrot:hover,
-.bug:hover {
+.bug:hover,
+.pop-up__refresh:hover {
   transform: scale(1.1);
 }
