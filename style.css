@@ -5,6 +5,7 @@
   --color-popup-background: rgba(0, 0, 0, 0.678);
   --color-ivory: ivory;
   --color-beige: wheat;
+  --color-red: rgba(209, 23, 23, 0.842);
 }
 * {
   box-sizing: border-box;
@@ -37,11 +38,7 @@ button {
 .game--ready.hide {
   display: none;
 }
-.carrot {
-  transition: transform 100ms ease-in;
-  width: 70px;
-  height: 80px;
-}
+
 .game--ready .carrot-left {
   margin: 40px 20px 0 0;
 }
@@ -158,13 +155,43 @@ button {
   font-size: 38px;
   letter-spacing: 3px;
 }
-
+.carrot {
+  width: 70px;
+  height: 80px;
+}
 .bug {
   width: 70px;
   height: 50px;
 }
+.rabbit {
+  width: 80px;
+  height: 80px;
+}
+.boss__img {
+  width: 230px;
+  height: 200px;
+}
+.boss__blood-box {
+  height: 13px;
+  width: 150px;
+  background-color: var(--color-ivory);
+  margin: auto;
+  border-radius: 4px;
+}
+.boss__remained-blood {
+  height: 100%;
+  width: 100%;
+  background-color: var(--color-red);
+  border-radius: 3px;
+}
+.carrot,
+.bug,
+.rabbit {
+  transition: transform 150ms ease-in;
+}
 .carrot:hover,
 .bug:hover,
+.rabbit:hover,
 .pop-up__refresh:hover {
   transform: scale(1.1);
 }

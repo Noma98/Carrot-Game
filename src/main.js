@@ -7,6 +7,8 @@ const game=new GameBuilder()
     .withGameDuration(10)
     .withCarrotCount(10)
     .withBugCount(5)
+    .withRabbitCount(5)
+    .withBossCount(3)
     .build();
 game.setGameStopListener((reason)=>{
     let message;
@@ -19,7 +21,7 @@ game.setGameStopListener((reason)=>{
             sound.playAlert();
             break;
         case Reason.next:
-            message='SUCESS❗';
+            message='SUCCESS❗';
             subMessage="Let's go to the next round!";
             sound.playWin();
             icon='<i class="fas fa-arrow-right"></i>'

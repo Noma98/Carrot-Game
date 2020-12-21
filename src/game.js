@@ -22,19 +22,31 @@ export class GameBuilder{
         this.bugCount=num;
         return this;
     }
+    withRabbitCount(num){
+        this.rabbitCount=num;
+        return this;
+    }
+    withBossCount(num){
+        this.bossCount=num;
+        return this;
+    }
     build(){
         return new Game(
             this.gameDuration,
             this.carrotCount,
-            this.bugCount
+            this.bugCount,
+            this.rabbitCount,
+            this.bossCount
         )
     }
 }
 
 class Game{
-    constructor(gameDuration,carrotCount,bugCount){
+    constructor(gameDuration,carrotCount,bugCount,rabbitCount,bossCount){
         this.carrotCount=carrotCount;
         this.bugCount=bugCount;
+        this.rabbitCount=rabbitCount;
+        this.bossCount=bossCount;
         this.gameDuration=gameDuration;
         this.started=false;
         this.score=0;
@@ -55,7 +67,7 @@ class Game{
                 this.start();
             }
         });
-        this.gameField=new Field(this.carrotCount,this.bugCount);
+        this.gameField=new Field(this.carrotCount,this.bugCount,this.rabbitCount,this.bossCount);
         this.gameField.setClickListener(this.onItemClick);
     }
     setGameStopListener(onGameStop){
@@ -65,7 +77,7 @@ class Game{
         this.started=true;
         this.score=0;
         sound.playbg();
-        this.initGame();
+        this.initGame(this.level);
         this.showStopBtn();
         this.showTimerAndScore();
         this.startGameTimer();
@@ -81,11 +93,11 @@ class Game{
         this.stopClockRing();
         this.gameField.notClickable('none');
     }
-    onItemClick=(item)=>{
+    onItemClick=(success)=>{
         if(!this.started){
             return;
         }
-        if(item===ItemType.carrot){
+        if(success){
             this.score++;
             this.updateScoreBoard();
             if(this.score===this.carrotCount){
@@ -95,9 +107,9 @@ class Game{
                     return;
                 }
                 this.stop(Reason.win);
-                this.levelUp();
+                this.initializeLevel();
             }
-        }else if(item===ItemType.bug){
+        }else{
             this.stop(Reason.lose);
         }
     }
@@ -125,6 +137,9 @@ class Game{
     levelUp(){
         this.level++;
     }
+    initializeLevel(){
+        this.level=0;
+    }
     updateTimerText(time){
         let minutes=Math.floor(time/60);
         let seconds=time%60;
@@ -148,10 +163,10 @@ class Game{
         this.gameBtn.style.visibility='hidden';
     }
 
-    initGame(){
+    initGame(level){
         this.score=0;
         this.gameScore.textContent=this.carrotCount;
-        this.gameField.init();
+        this.gameField.init(level);
     }
     clockRing(){
         const clock=document.querySelector('.clock');
