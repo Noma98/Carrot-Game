@@ -93,14 +93,31 @@ class Game{
         this.stopClockRing();
         this.gameField.notClickable('none');
     }
-    onItemClick=(success)=>{
+    onItemClick=(success,countTarget)=>{
         if(!this.started){
             return;
         }
         if(success){
             this.score++;
-            this.updateScoreBoard();
-            if(this.score===this.carrotCount){
+            this.updateScoreBoard(countTarget);
+            switch (this.level) {
+                case 1:
+                case 2:
+                    this.calculateForLevelUp(this.carrotCount);
+                    break;
+                case 3:
+                    this.calculateForLevelUp(this.bossCount);
+                    break;
+                default:
+                    Error('unknown');
+                    break;
+            }
+        }else{
+            this.stop(Reason.lose);
+        }
+    }
+    calculateForLevelUp(countedItem){
+        if(this.score===countedItem){
                 if(this.level!==3){
                     this.stop(Reason.next);
                     this.levelUp();
@@ -108,14 +125,13 @@ class Game{
                 }
                 this.stop(Reason.win);
                 this.initializeLevel();
-            }
-        }else{
-            this.stop(Reason.lose);
         }
     }
-
     startGameTimer(){
         let remainingTimeSec=this.gameDuration;
+        if(this.level===3){
+            remainingTimeSec*=2;
+        }
         this.updateTimerText(remainingTimeSec);
         this.timer=setInterval(() => {
             if(remainingTimeSec<=0){
@@ -138,15 +154,15 @@ class Game{
         this.level++;
     }
     initializeLevel(){
-        this.level=0;
+        this.level=1;
     }
     updateTimerText(time){
         let minutes=Math.floor(time/60);
         let seconds=time%60;
         this.gameTimer.textContent=`${minutes}:${seconds}`;
     }
-    updateScoreBoard(){
-        this.gameScore.textContent=this.carrotCount-this.score;
+    updateScoreBoard(countTarget){
+        this.gameScore.textContent=countTarget-this.score;
     }
 
     showTimerAndScore(){
@@ -165,7 +181,11 @@ class Game{
 
     initGame(level){
         this.score=0;
-        this.gameScore.textContent=this.carrotCount;
+        if(level===3){
+            this.gameScore.textContent=this.bossCount;
+        }else{
+            this.gameScore.textContent=this.carrotCount;
+        }
         this.gameField.init(level);
     }
     clockRing(){

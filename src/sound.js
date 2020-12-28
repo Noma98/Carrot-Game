@@ -3,6 +3,7 @@ const carrotSound=new Audio('sound/carrot_pull.mp3');
 const bugSound=new Audio('sound/bug_pull.mp3');
 const hitSound=new Audio('sound/hit.mp3');
 const dieSound=new Audio('sound/die.mp3');
+const getCarrotSound=new Audio('sound/get_carrot.mp3');
 const alertSound=new Audio('sound/alert.wav');
 const winSound=new Audio('sound/game_win.mp3');
 const bgSound=new Audio('sound/bg.mp3');
@@ -30,6 +31,9 @@ export function playbg(){
 }
 export function stopbg(){
     stopSound(bgSound);
+}
+export function playGetCarrot(){
+    playSound(getCarrotSound);
 }
 
 function playSound(sound){
