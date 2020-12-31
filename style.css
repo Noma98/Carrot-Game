@@ -25,7 +25,7 @@ button {
 }
 .game--ready {
   position: absolute;
-  top: 60%;
+  top: 67%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: var(--color-brown);
@@ -103,6 +103,20 @@ button {
   width: 70px;
   height: 70px;
 }
+.ring {
+  animation: ringing 500ms linear 0s infinite alternate both;
+}
+.ring-fast {
+  animation: ringing 100ms linear 0s infinite alternate both;
+}
+@keyframes ringing {
+  from {
+    transform: rotate(-3deg);
+  }
+  to {
+    transform: rotate(3deg);
+  }
+}
 .game__score {
   font-size: 40px;
   color: var(--color-ivory);
@@ -167,6 +181,7 @@ button {
 .bug {
   width: 70px;
   height: 50px;
+  animation: randomMove 10s linear 0s infinite alternate both;
 }
 .rabbit {
   width: 80px;
@@ -230,4 +245,5 @@ button {
 .rabbit:hover,
 .pop-up__refresh:hover {
   transform: scale(1.1);
+  cursor: pointer;
 }

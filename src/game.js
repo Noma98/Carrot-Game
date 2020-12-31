@@ -52,10 +52,10 @@ class Game{
         this.score=0;
         this.level=1;
         this.timer=undefined;
-        this.ringing=undefined;
-
+        this.clockSetTimeout=undefined;
         this.gameBtn=document.querySelector('.game__button');
         this.gameTimerBox=document.querySelector('.game__timer-box');
+        this.clock=document.querySelector('.clock');
         this.gameTimer=document.querySelector('.game__timer');
         this.gameScore=document.querySelector('.game__score');
         this.gameLevel=document.querySelector('.level');
@@ -81,16 +81,15 @@ class Game{
         this.showStopBtn();
         this.showTimerAndScore();
         this.startGameTimer();
-        this.clockRing();
         this.gameField.notClickable('auto');
         this.showLevel();
     }
     stop(reason){
         this.started=false;
+        sound.stopbg();
         this.hideGameBtn();
         this.stopGameTimer();
         this.onGameStop&&this.onGameStop(reason);
-        this.stopClockRing();
         this.gameField.notClickable('none');
     }
     onItemClick=(success,countTarget)=>{
@@ -132,6 +131,7 @@ class Game{
         if(this.level===3){
             remainingTimeSec*=2;
         }
+        this.clockRing(remainingTimeSec);
         this.updateTimerText(remainingTimeSec);
         this.timer=setInterval(() => {
             if(remainingTimeSec<=0){
@@ -145,7 +145,8 @@ class Game{
     }
     stopGameTimer(){
         clearInterval(this.timer);
-        sound.stopbg();
+        this.stopClockRing();
+        sound.stopClock();
     }
     showLevel(){
         this.gameLevel.textContent=this.level;
@@ -188,16 +189,18 @@ class Game{
         }
         this.gameField.init(level);
     }
-    clockRing(){
-        const clock=document.querySelector('.clock');
-        this.ringing=setInterval(() => {
-                setTimeout(() => {
-                clock.style.transform='rotate(-2deg)';
-                }, 100);
-                clock.style.transform='rotate(2deg)'; 
-            }, 200);
+    clockRing(time){
+        let almostTimeToFinish=time*0.7*1000;
+        this.clock.className='clock ring';
+        this.clockSetTimeout=setTimeout(() => {
+            sound.playClock();
+            this.clock.className='clock ring-fast';
+            this.clock.setAttribute('src','img/clock-ring.png');
+        }, almostTimeToFinish);
     } 
     stopClockRing(){
-        clearInterval(this.ringing);
+        clearTimeout(this.clockSetTimeout);
+        this.clock.className='clock';
+        this.clock.setAttribute('src','img/clock.png');
     }
 }

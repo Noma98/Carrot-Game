@@ -7,6 +7,7 @@ const getCarrotSound=new Audio('sound/get_carrot.mp3');
 const alertSound=new Audio('sound/alert.wav');
 const winSound=new Audio('sound/game_win.mp3');
 const bgSound=new Audio('sound/bg.mp3');
+const clockSound=new Audio('sound/clock.wav');
 
 export function playCarrot(){
     playSound(carrotSound);
@@ -29,8 +30,14 @@ export function playWin(){
 export function playbg(){
     playSound(bgSound);
 }
+export function playClock(){
+    playSound(clockSound);
+}
 export function stopbg(){
     stopSound(bgSound);
+}
+export function stopClock(){
+    stopSound(clockSound);
 }
 export function playGetCarrot(){
     playSound(getCarrotSound);
