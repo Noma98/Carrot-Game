@@ -27,7 +27,7 @@
   > - 게임시작(▶) 버튼 클릭시 타이머와 당근 개수 표시 및 작동
   > - 게임이 시작되면 게임화면의 땅에 해당하는 부분에 벌레와 당근을 랜덤배치
   > - 지정된 시간 내에 당근을 모두 클릭해야함
-  >   <img src="gif_carrot.gif" width="200px">
+  >   <img src="readme/gif_carrot.gif" width="200px">
   > - 당근 클릭 시 남은 당근 개수를 타이머 밑에 표시
   > - 당근이나 벌레 클릭시 각 효과음 재생
   > - 필드 위의 아이템들을 hover하면 크기 변경
@@ -39,7 +39,7 @@
 
   > 1.  타이머 옆 시계 이미지 추가
   >     > - 천천히 똑딱거리는(rotate) 애니메이션 추가
-  >     >   <img src="gif_timer.gif" width=150px>
+  >     >   <img src="readme/gif_timer.gif" width=150px>
   >     > - 제한시간이 끝나가면 빠르게 똑딱거리며 효과음 재생, 이미지도 소리가 울리는 이미지로 변환
   >     > - 타이머가 중단되면 시계의 움직임도 멈춤
 
@@ -48,7 +48,7 @@
   > 3.  라운드 3 추가
   >
   >     > - 보스몬스터를 때려서 피를 닳게 한 후 처치하면 본래 모습의 몬스터가 당근을 놓아줌
-  >     >   <img src="gif_hitBoss.gif" height=150px>
+  >     >   <img src="readme/gif_hitBoss.gif" height=150px>
   >     > - 당근은 애니메이션을 이용해 둥둥 떠다니게 함
   >     > - 당근 클릭시 기존의 사운드 외에 새로운 mp3 추가
   >
@@ -69,9 +69,9 @@ clearInterval(timer);
 
 ## 프로젝트 구현 이미지
 
-<img src="level1.png">
-<img src="level2.png">
-<img src="level3.png">
-<img src="replay.png">
-<img src="success.png">
-<img src="won.png">
+<img src="readme/level1.png">
+<img src="readme/level2.png">
+<img src="readme/level3.png">
+<img src="readme/replay.png">
+<img src="readme/success.png">
+<img src="readme/won.png">
