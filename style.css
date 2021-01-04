@@ -247,3 +247,6 @@ button {
   transform: scale(1.1);
   cursor: pointer;
 }
+.boss__img:hover {
+  cursor: pointer;
+}
