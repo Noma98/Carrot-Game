@@ -92,7 +92,7 @@ export class Field{
     }
     bleeding(target){
         const targetBloodBox=target.nextSibling.nextSibling;
-        const targetBlood=target.nextSibling.nextSibling.childNodes[1];
+        const targetBlood=targetBloodBox.childNodes[1];
         let blood=targetBlood.dataset["blood"];
         blood-=10;
         targetBlood.dataset["blood"]=blood;
@@ -100,8 +100,8 @@ export class Field{
         if(blood===0){
             target.parentNode.innerHTML=`
                 <div class="lost-boss">
-                <img src="img/lostBoss.png" alt="carrot" class="lost-boss__img">
-                <img src="img/bossCarrot.png" alt="" class="lost-boss__carrot">
+                <img src="img/lostBoss.png" alt="lost boss" class="lost-boss__img">
+                <img src="img/bossCarrot.png" alt="carrot" class="lost-boss__carrot">
                 </div>`;
         }
     }
