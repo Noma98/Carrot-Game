@@ -9,7 +9,7 @@ merry.github.io
 
 </p>
 <img width="100%" src="readme/thumbnail.png">  
-<h2 align="center"><a href="https://merryha.github.io/Carrot-Game/"><b>Live Demo</b></a></h2>
+<h2 align="center"><a href="https://noma98.github.io/Carrot-Game/"><b>Live Demo</b></a></h2>
 
 ---
 
